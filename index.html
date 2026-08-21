@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Love ❤️</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    #f5f2ed 0px,
+                    #f5f2ed 27px,
+                    #d9d6d1 28px,
+                    #f5f2ed 29px
+                );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-family: "Poppins", sans-serif;
+            overflow: hidden;
+        }
+
+        /* Contenedor principal */
+
+        .book {
+            width: min(90%, 760px);
+            min-height: 470px;
+
+            background: rgba(255, 253, 248, 0.96);
+
+            border: 1px solid #ddd8d0;
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,.18),
+                0 2px 5px rgba(0,0,0,.08);
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        /* Páginas */
+
+        .page {
+            display: none;
+
+            min-height: 470px;
+
+            padding: 45px 55px;
+
+            text-align: center;
+
+            animation: aparecer .6s ease;
+        }
+
+        .page.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* TITULO */
+
+        .title {
+            font-family: "Dancing Script", cursive;
+
+            color: #8e0717;
+
+            font-size: clamp(45px, 8vw, 70px);
+
+            line-height: .95;
+
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-family: "Dancing Script", cursive;
+
+            color: #70353d;
+
+            font-size: 21px;
+
+            margin-bottom: 40px;
+        }
+
+        /* CORAZONES */
+
+        .hearts {
+            display: flex;
+            justify-content: center;
+            gap: 45px;
+
+            margin-bottom: 35px;
+        }
+
+        .heart {
+            position: relative;
+
+            width: 65px;
+            height: 65px;
+
+            background: #e8e8e8;
+
+            transform: rotate(-45deg);
+
+            image-rendering: pixelated;
+
+            box-shadow:
+                7px 7px 0 #d0d0d0;
+
+            cursor: pointer;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+
+            position: absolute;
+
+            width: 65px;
+            height: 65px;
+
+            background: #e8e8e8;
+
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -32px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 32px;
+            top: 0;
+        }
+
+        .heart.filled {
+            animation: fillLiquid 2s ease-out forwards;
+            box-shadow: 7px 7px 0 #8a0a18;
+        }
+
+        .heart.filled::before {
+            animation: fillLiquid 2s ease-out forwards;
+        }
+
+        .heart.filled::after {
+            animation: fillLiquid 2s ease-out forwards;
+        }
+
+        @keyframes fillLiquid {
+            0% {
+                background: #e8e8e8;
+            }
+            100% {
+                background: #e31835;
+            }
+        }
+
+        /* BOTONES */
+
+        .nav-btn {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 50%;
+
+            border: 1px solid #d69aa3;
+
+            background: #fffaf8;
+
+            color: #9b1829;
+
+            font-size: 25px;
+
+            cursor: pointer;
+
+            position: absolute;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            transition: .25s;
+        }
+
+        .nav-btn:hover {
+            background: #f7dce0;
+
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .prev {
+            left: 18px;
+        }
+
+        .next {
+            right: 18px;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-btn:disabled:hover {
+            background: #fffaf8;
+            transform: translateY(-50%);
+        }
+
+        /* ICONO PLAY */
+
+        .music-icon {
+            position: absolute;
+
+            right: 17px;
+            top: 17px;
+
+            width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            border: 1px solid #d69aa3;
+
+            background: white;
+
+            color: #8e0717;
+
+            cursor: pointer;
+        }
+
+        /* VIDEO */
+
+        .video-container {
+            width: min(100%, 560px);
+
+            aspect-ratio: 16 / 9;
+
+            overflow: hidden;
+
+            border-radius: 10px;
+
+            box-shadow: 0 5px 15px rgba(0,0,0,.2);
+
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+
+            border: none;
+        }
+
+        .song-title {
+            font-family: "Dancing Script", cursive;
+
+            color: #8e0717;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+        }
+
+        .song-description {
+            max-width: 550px;
+
+            color: #705d5d;
+
+            font-family: "Dancing Script", cursive;
+
+            font-size: 17px;
+
+            line-height: 1.4;
+        }
+
+        /* CARTA */
+
+        .letter {
+            text-align: left;
+
+            width: 100%;
+
+            max-width: 620px;
+        }
+
+        .letter h2 {
+            font-family: "Dancing Script", cursive;
+
+            color: #8e0717;
+
+            font-size: 45px;
+
+            margin-bottom: 10px;
+        }
+
+        .letter p {
+            font-family: "Dancing Script", cursive;
+
+            font-size: 16px;
+
+            line-height: 1.55;
+
+            color: #594747;
+
+            margin-bottom: 12px;
+        }
+
+        .signature {
+            text-align: right;
+
+            font-family: "Dancing Script", cursive;
+
+            font-size: 28px;
+
+            color: #8e0717;
+
+            margin-top: 12px;
+        }
+
+        /* BOTON HOME */
+
+        .home {
+            width: 43px;
+            height: 43px;
+
+            border-radius: 50%;
+
+            border: 1px solid #d69aa3;
+
+            background: #fffaf8;
+
+            color: #8e0717;
+
+            cursor: pointer;
+
+            font-size: 21px;
+
+            margin-top: 8px;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:600px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .book {
+                width: 100%;
+                min-height: 480px;
+            }
+
+            .page {
+                min-height: 480px;
+
+                padding: 35px 40px;
+            }
+
+            .hearts {
+                gap: 25px;
+            }
+
+            .heart,
+            .heart::before,
+            .heart::after {
+                width: 45px;
+                height: 45px;
+            }
+
+            .heart::before {
+                top: -22px;
+            }
+
+            .heart::after {
+                left: 22px;
+            }
+
+            .title {
+                font-size: 50px;
+            }
+
+            .subtitle {
+                font-size: 17px;
+            }
+
+            .prev {
+                left: 8px;
+            }
+
+            .next {
+                right: 8px;
+            }
+
+            .letter h2 {
+                font-size: 38px;
+            }
+
+            .letter p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="book">
+
+    <!-- ========================= -->
+    <!-- PÁGINA 1 -->
+    <!-- ========================= -->
+
+    <section class="page active" id="page1">
+
+        <button class="music-icon" onclick="toggleMusic()">
+            ♪
+        </button>
+
+        <h1 class="title">
+            Hola <br>
+            My Love
+        </h1>
+
+        <p class="subtitle">
+            Aquí tienes un pedacito de mi corazón, hecho especialmente para ti.
+        </p>
+
+        <div class="hearts">
+
+            <div class="heart" onclick="toggleHeart(this)"></div>
+
+            <div class="heart" onclick="toggleHeart(this)"></div>
+
+            <div class="heart" onclick="toggleHeart(this)"></div>
+
+        </div>
+
+        <button class="nav-btn next" onclick="nextPage()">
+            ▶
+        </button>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- PÁGINA 2 -->
+    <!-- ========================= -->
+
+    <section class="page" id="page2">
+
+        <button class="nav-btn prev" onclick="prevPage()">
+            ◀
+        </button>
+
+        <div class="video-container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px;">
+
+            <img src="FORO PAGE 2.png" alt="Foto especial" style="width: 100%; max-width: 500px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,.2);">
+
+            <audio controls autoplay style="width: 100%; max-width: 500px; background: rgba(142, 7, 23, 0.1); border: 2px solid #8e0717; border-radius: 10px; padding: 12px; accent-color: #8e0717;">
+                <source src="ERES.mp3" type="audio/mpeg">
+                Tu navegador no soporta el elemento de audio.
+            </audio>
+
+        </div>
+
+        <h3 class="song-title">
+            ERES - Café Tacvba
+        </h3>
+
+        <p class="song-description">
+            Esta canción me hace recordarte siempre que la escucho, 
+            te haz convertido en lo que mas quiero, mi persona favorita, 
+            capaz se hacer mover mi mundo entero con D linda sonrisa, 
+            estar a tu lado para siempre es lo que más deseo por las noches.
+            
+        </p>
+
+        <button class="nav-btn next" onclick="nextPage()">
+            ▶
+        </button>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- PÁGINA 3 -->
+    <!-- ========================= -->
+
+    <section class="page" id="page3">
+
+        <button class="nav-btn prev" onclick="prevPage()">
+            ◀
+        </button>
+
+        <div class="letter">
+
+            <h2>
+                Dear Daniela
+            </h2>
+
+            <p>
+                Te has convertido en lo que más quiero en mi persona, pensamiento,
+                lugar y sentimiento favorito capaz de hacer mover todo mi mundo 
+                entero con tu linda sonrisa.
+            </p>
+
+            <p>
+                Y tus ojos que me hacen sentir que quiero pasar todo el tiempo contigo,
+                 para poder apreciarlos mas.
+            </p>
+
+            <p>
+               Tu personalidad tan hermosa y llena de vida e impulsiva.
+            </p>
+
+            <p>
+                Cada dia despierto con la emoción de estar contigo
+            </p>
+
+            <div class="signature">
+                Siempre tuyo, <br>
+                <strong>D.L</strong>  
+            </div>
+
+        </div>
+
+        <button class="home" onclick="goHome()">
+            🏠
+        </button>
+
+    </section>
+
+</div>
+
+<!-- Reproductor de Música -->
+<div id="musicPlayer" class="music-player" style="display: flex;">
+    <div class="music-player-content">
+        <button class="close-music" onclick="closeMusic()">✕</button>
+        <div class="audio-container">
+            <h3>Reproduciendo música...</h3>
+            <audio id="audioElement" controls autoplay style="width: 100%; margin-top: 20px;">
+                <source src="ERES.mp3" type="audio/mpeg">
+                Tu navegador no soporta el elemento de audio.
+            </audio>
+        </div>
+    </div>
+</div>
+
+<style>
+    .music-player {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .music-player-content {
+        position: relative;
+        width: 90%;
+        max-width: 500px;
+        background: linear-gradient(135deg, #8e0717 0%, #c9184a 100%);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        color: white;
+    }
+
+    .audio-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .audio-container h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .audio-container audio {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .close-music {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.3);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 18px;
+        z-index: 1001;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .close-music:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+</style>
+
+<script>
+
+    let currentPage = 1;
+
+    const totalPages = 3;
+
+
+    function showPage(page) {
+
+        document.querySelectorAll(".page").forEach(function(element) {
+
+            element.classList.remove("active");
+
+        });
+
+        document
+            .getElementById("page" + page)
+            .classList.add("active");
+
+        currentPage = page;
+    }
+
+
+    function nextPage() {
+
+        // Si estamos en página 1, verificar que todos los corazones estén rojos
+        if (currentPage === 1) {
+            const hearts = document.querySelectorAll('#page1 .heart');
+            const allFilled = Array.from(hearts).every(heart => heart.classList.contains('filled'));
+            
+            if (!allFilled) {
+                alert('¡Debes llenar todos los corazones para continuar! ❤️');
+                return;
+            }
+        }
+
+        if (currentPage < totalPages) {
+
+            showPage(currentPage + 1);
+
+        }
+
+    }
+
+
+    function prevPage() {
+
+        if (currentPage > 1) {
+
+            showPage(currentPage - 1);
+
+        }
+
+    }
+
+
+    function goHome() {
+
+        showPage(1);
+
+    }
+
+
+    let isPlayingMusic = true;
+
+    function toggleMusic() {
+        const musicPlayer = document.getElementById('musicPlayer');
+        const musicBtn = document.querySelector('.music-icon');
+        
+        if (!isPlayingMusic) {
+            musicPlayer.style.display = 'flex';
+            isPlayingMusic = true;
+            musicBtn.style.opacity = '0.7';
+        } else {
+            musicPlayer.style.display = 'none';
+            isPlayingMusic = false;
+            musicBtn.style.opacity = '1';
+        }
+    }
+
+    function closeMusic() {
+        document.getElementById('musicPlayer').style.display = 'none';
+        isPlayingMusic = false;
+        document.querySelector('.music-icon').style.opacity = '1';
+    }
+
+
+    function toggleHeart(element) {
+
+        element.classList.toggle("filled");
+        updateNextButtonState();
+
+    }
+
+    function updateNextButtonState() {
+        if (currentPage === 1) {
+            const hearts = document.querySelectorAll('#page1 .heart');
+            const allFilled = Array.from(hearts).every(heart => heart.classList.contains('filled'));
+            const nextBtn = document.querySelector('#page1 .nav-btn.next');
+            
+            if (allFilled) {
+                nextBtn.removeAttribute("disabled");
+            } else {
+                nextBtn.setAttribute("disabled", "");
+            }
+        }
+    }
+
+
+    /*
+
+       También puedes cambiar de página
+       usando las flechas del teclado.
+
+    */
+
+    document.addEventListener("keydown", function(event) {
+
+        if (event.key === "ArrowRight") {
+
+            nextPage();
+
+        }
+
+        if (event.key === "ArrowLeft") {
+
+            prevPage();
+
+        }
+
+    });
+
+    // Inicializar el estado del botón cuando carga la página
+    updateNextButtonState();
+
+</script>
+
+</body>
+</html>
